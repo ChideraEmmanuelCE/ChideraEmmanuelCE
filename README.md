@@ -2,7 +2,7 @@
 - 👀 I’m interested in creating webpages
 - 🌱 I’m currently learning js
 - 💞️ I’m looking to collaborate on anything possible
-- 📫 How to reach me via instagram @chideraokpala06
+- 📫 How to reach me via instagram @chideraokpala01
 
 <!---
 ChideraEmmanuelCE/ChideraEmmanuelCE is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
