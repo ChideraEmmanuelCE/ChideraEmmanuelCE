@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse — Random Idea Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="badge">RANDOM BUILD / 2026</div>
+      <h1>Pulse</h1>
+      <p class="intro">Tap once. Get a tiny challenge worth doing right now.</p>
+
+      <div class="card" id="card">
+        <p class="label">YOUR NEXT MOVE</p>
+        <h2 id="challenge">Build something absurdly small.</h2>
+        <p id="detail">Give yourself 10 minutes. No perfection, just momentum.</p>
+        <div class="meta">
+          <span id="time">10 min</span>
+          <span id="mode">CREATE</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="generate">Generate another</button>
+        <button class="ghost" id="copy">Copy challenge</button>
+      </div>
+
+      <p class="hint">Keyboard: press <kbd>Space</kbd> for a new challenge.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
