@@ -1,27 +1,43 @@
-# 👋 Hey, I'm Chidera Emmanuel
+# Chidera Emmanuel Okpala
 
-💻 **Software Developer | Web Developer | Builder**
+**Full-stack web and mobile developer · React, Next.js, TypeScript and Node.js · Lagos, Nigeria**
 
-I’m a passionate developer focused on building modern, scalable, and user-friendly digital experiences. I enjoy turning ideas into functional products, solving complex problems, and exploring new technologies.
+I build responsive websites, web applications and mobile interfaces. I also help teams fix existing products, connect APIs and deliver clearly scoped features through GitHub.
 
-* 🌐 **Web Development** — Building responsive, modern, and high-performance web applications
-* ⚡ **JavaScript** — Developing interactive and dynamic applications
-* 🛠️ **Software Development** — Designing, building, debugging, and improving real-world applications
-* 🤝 **Collaboration** — Always open to working with talented developers, creators, and teams on interesting projects
-* 🚀 **Projects** — I enjoy taking ideas from concept to a working product
-* 🧠 **Growth Mindset** — Experienced in development, but always open to learning better approaches, technologies, and ideas
+[View my portfolio](https://my-portfolio-ce.netlify.app) · [Discuss a project](https://wa.me/2347042879150) · [Email me](mailto:chideraemmanuelokpala@gmail.com)
 
-### 💡 What I Do
+## Work with me
 
-I like building things that are **useful, reliable, and well-designed**. Whether it's a simple webpage, a complex application, or an idea that needs to be turned into reality, I'm always interested in finding the right technical solution.
+- **Website repairs:** mobile layout problems, broken enquiry paths, confusing navigation and focused interface improvements.
+- **Business websites and lead-enquiry pages:** clear service information and practical ways for visitors to contact your business.
+- **Agency development support:** scoped React, Next.js, TypeScript and Node.js tasks, with a pull request and a documented handoff.
+- **Web and mobile products:** features and API integrations, with the requirements, acceptance criteria and price agreed before work begins.
 
-I believe great developers never stop improving — not because they don't know enough, but because **there's always a better way to build something.**
+## Selected work
 
-### 🤝 Let's Connect
+These are independent portfolio projects, not claims of client results.
 
-📸 **Instagram:** [@chideraokpala01](https://instagram.com/chideraokpala01)
+| Project | What to explore | Link |
+| --- | --- | --- |
+| Pocket POS | A point-of-sale interface for everyday business workflows | [Open project](https://pocket-pos.netlify.app) |
+| Nova Digital | A service website and responsive product presentation | [Open project](https://my-nova-digital.netlify.app) |
+| Quick Bill Split | An interactive bill-splitting utility | [Open project](https://quick-bill-split.netlify.app) |
 
-⭐ Feel free to explore my repositories, check out my projects, and connect with me.
+## Open-source work
 
-> **Build. Solve. Improve. Repeat.**
+**[Commonhour](https://github.com/ChideraEmmanuelCE/commonhour)** helps people compare meeting times across time zones and share a plan or download a calendar event. It is an MIT-licensed browser application with no account required.
 
+[Try Commonhour](https://chidera-commonhour.netlify.app) · [Read the code and documented limitations](https://github.com/ChideraEmmanuelCE/commonhour)
+
+## How I work
+
+1. Agree the problem, scope, acceptance criteria and delivery estimate.
+2. Build and share reviewable progress.
+3. Validate the agreed behaviour and explain the checks completed.
+4. Hand over the code, deployment details and usage notes.
+
+## Main tools
+
+JavaScript · TypeScript · React · Next.js · React Native / Expo · Node.js · Express · REST APIs · PostgreSQL · Git / GitHub · Netlify · AI API integrations
+
+For remote contract work or a project brief, email **chideraemmanuelokpala@gmail.com** or [contact me on WhatsApp](https://wa.me/2347042879150).
