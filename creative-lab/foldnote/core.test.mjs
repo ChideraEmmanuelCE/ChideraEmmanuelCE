@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {EXAMPLE,validateDraft,wrapText,fitText,randomFor,SCENES,PALETTES} from './dist/core.mjs';
+test('drafts round trip with text, illustration, palette and composition intact',()=>{const draft={...EXAMPLE,title:'You & me <always>',scene:2,palette:2,seed:0xffffffff};assert.deepEqual(validateDraft(JSON.parse(JSON.stringify(draft))),draft);});
+test('malformed storage, unknown choices and excessive text are rejected',()=>{for(const value of [null,{}, {...EXAMPLE,title:'x'.repeat(49)},{...EXAMPLE,message:1},{...EXAMPLE,scene:SCENES.length},{...EXAMPLE,palette:PALETTES.length},{...EXAMPLE,seed:-1},{...EXAMPLE,seed:NaN},{...EXAMPLE,version:2}])assert.throws(()=>validateDraft(value));});
+test('wrapping keeps every word and stays within the available width',()=>{const text='A small note can make a very ordinary day feel extraordinary.';const lines=wrapText(text,18,t=>t.length);assert.equal(lines.join(' '),text);assert.ok(lines.every(line=>line.length<=18));});
+test('long unbroken text is wrapped instead of being lost outside the card',()=>{const text='W'.repeat(48);const lines=wrapText(text,13,t=>t.length);assert.equal(lines.join(''),text);assert.ok(lines.every(line=>line.length<=13));});
+test('blank fields and extra whitespace produce clean card text',()=>{assert.deepEqual(wrapText('',30,t=>t.length),[]);assert.deepEqual(wrapText('   hello  lovely\nworld ',30,t=>t.length),['hello lovely world']);});
+test('headline fitting makes long titles fit two lines without truncation',()=>{const text='W'.repeat(48);const fit=fitText(text,840,2,66,32,(t,size)=>t.length*size);assert.ok(fit.lines.length<=2);assert.equal(fit.lines.join(''),text);assert.ok(fit.lines.every(line=>line.length*fit.size<=840));});
+test('unicode graphemes are not cut apart when wrapping',()=>{const text='👩🏽‍💻👩🏽‍💻👩🏽‍💻';const lines=wrapText(text,8,t=>Array.from(t).length);assert.equal(lines.join(''),text);assert.ok(lines.every(line=>line==='👩🏽‍💻'||line==='👩🏽‍💻👩🏽‍💻'));});
+test('the same seed reproduces an illustration and a new seed changes it',()=>{const a=randomFor(412),b=randomFor(412),c=randomFor(413),first=Array.from({length:30},()=>a());assert.deepEqual(first,Array.from({length:30},()=>b()));assert.notDeepEqual(first,Array.from({length:30},()=>c()));assert.ok(first.every(v=>v>=0&&v<1));});
