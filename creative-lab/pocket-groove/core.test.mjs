@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {STEPS, TRACKS, PRESETS, emptyPattern, validateLoop, stepDuration, randomPattern} from './dist/core.mjs';
+const loop = () => ({version:1,tempo:96,swing:12,pattern:emptyPattern(),muted:[false,false,false,false]});
+test('a saved loop survives a JSON round trip and is independent from editing state',()=>{const state=loop();state.pattern[0][0]=true;state.muted[2]=true;const saved=validateLoop(JSON.parse(JSON.stringify(state)));assert.deepEqual(saved,state);saved.pattern[0][0]=false;assert.equal(state.pattern[0][0],true);});
+test('malformed or out of range browser saves cannot enter the sequencer',()=>{for(const bad of [null,{}, {...loop(),tempo:0},{...loop(),tempo:Infinity},{...loop(),swing:41},{...loop(),version:2},{...loop(),pattern:[[true]]},{...loop(),pattern:loop().pattern.map(r=>r.map(()=>1))},{...loop(),muted:[false]}])assert.throws(()=>validateLoop(bad));});
+test('every full bar keeps its tempo at every allowed swing',()=>{for(const tempo of [60,96,160])for(const swing of [0,12,40]){const durations=Array.from({length:STEPS},(_,s)=>stepDuration(s,tempo,swing));assert.ok(durations.every(d=>d>0));assert.ok(Math.abs(durations.reduce((a,b)=>a+b,0)-4*60/tempo)<1e-10);if(swing)assert.ok(durations[0]>durations[1]);}});
+test('starter grooves and generated grooves always contain a full valid playable grid',()=>{for(const p of PRESETS)validateLoop({...loop(),...p});for(const value of [0,.5,.99999]){const pattern=randomPattern(()=>value);assert.equal(pattern.length,TRACKS.length);assert.ok(pattern.every(r=>r.length===STEPS));assert.equal(pattern[0][0],true);assert.equal(pattern[0][8],true);assert.equal(pattern[1][4],true);validateLoop({...loop(),pattern});}});
+test('empty grids never share mutable rows',()=>{const pattern=emptyPattern();pattern[0][0]=true;assert.equal(pattern[1][0],false);assert.equal(emptyPattern()[0][0],false);});
