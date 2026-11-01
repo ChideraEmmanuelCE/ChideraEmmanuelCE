@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#060a13" />
+  <meta name="description" content="NOVA DRIFT — a free futuristic 3D hovercraft simulator. Dodge obstacles, collect energy cores and survive the neon highway." />
+  <title>NOVA DRIFT — 3D Hover Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="scene" aria-label="Interactive 3D futuristic hovercraft simulator"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">N<span>✦</span></span><span class="brand-text">NOVA<span class="dim"> / </span>DRIFT</span><span class="brand-tag">FLIGHT LAB 01</span></div>
+      <div class="top-actions"><div class="online"><span class="led"></span> SIMULATION ACTIVE</div><button id="camera-btn" class="icon-btn" type="button" title="Change camera view (C)">◫ <span>CAMERA</span></button><button id="sound-btn" class="icon-btn" type="button" title="Toggle sound (M)">♫ <span>AUDIO OFF</span></button><button id="pause-btn" class="icon-btn" type="button" title="Pause (P)">Ⅱ <span>PAUSE</span></button></div>
+    </header>
+    <main class="hud" aria-label="Flight status">
+      <div class="left-stack"><div class="eyebrow"><span class="hairline"></span> FLIGHT TELEMETRY</div><div class="speed-card"><div class="metric-label">GROUND SPEED <span class="metric-icon">↗</span></div><div class="speed-row"><span id="speed">000</span><span class="unit">KM/H</span></div><div class="speed-line"><div id="speed-bar"></div></div><div class="mini-pair"><span>THRUST</span><strong id="thrust">IDLE</strong></div></div><div class="metric-grid"><div class="mini-card"><span>DISTANCE</span><strong><span id="distance">0.00</span><small> KM</small></strong></div><div class="mini-card"><span>CORES</span><strong id="cores">00</strong></div></div><div class="shield-card"><div class="shield-heading"><span>⚡ SHIELD ENERGY</span><strong id="energy">100%</strong></div><div class="shield-meter"><div id="energy-bar"></div></div><div class="shield-caption"><span>BOOST CONSUMES ENERGY</span><span id="state-label">STABLE</span></div></div></div>
+      <div class="right-stack"><div class="sector-card"><span class="small-label">CURRENT ZONE</span><strong id="zone">THE NEON EXPANSE</strong><span class="coords">SECTOR 01 · 2094</span></div><div class="objective-card"><span class="small-label">YOUR MISSION</span><strong>STAY ALIVE.</strong><p>Collect cyan cores to recharge. Avoid the red pylons. Push your craft to its limit.</p><div class="best-line">PERSONAL BEST <strong id="best">0.00 KM</strong></div></div><div class="signal"><span></span><span></span><span></span><span></span><em>LIVE PHYSICS</em></div></div>
+    </main>
+    <div class="reticle" aria-hidden="true"><span class="reticle-top"></span><span class="reticle-mid">+</span><span class="reticle-bottom"></span></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <footer class="bottom-bar"><div class="controls-copy"><span class="key">A</span><span class="key">D</span><span>STRAFE</span><span class="separator">/</span><span class="key">↑</span><span class="key">↓</span><span>ALTITUDE</span><span class="separator">/</span><span class="key wide">SPACE</span><span>BOOST</span><span class="separator">/</span><span class="key">C</span><span>CAMERA</span></div><div class="footnote">EXPERIMENTAL FLIGHT SYSTEM <span>•</span> BUILT WITH THREE.JS</div></footer>
+    <div id="touch-controls" class="touch-controls" aria-label="Touch flight controls"><div class="touch-dpad"><button class="touch-arrow left" data-control="left" aria-label="Move left">←</button><button class="touch-arrow up" data-control="up" aria-label="Move up">↑</button><button class="touch-arrow down" data-control="down" aria-label="Move down">↓</button><button class="touch-arrow right" data-control="right" aria-label="Move right">→</button></div><button id="boost-touch" class="touch-boost" data-control="boost">BOOST <span>↗</span></button></div>
+    <div id="intro" class="overlay visible"><div class="intro-inner"><div class="intro-kicker"><span class="pulse"></span> SYSTEM ONLINE <span class="slash">/</span> YEAR 2094</div><div class="intro-overline">AN INTERACTIVE 3D FLIGHT EXPERIENCE</div><h1>NOVA<br /><i>DRIFT.</i></h1><p>One craft. An infinite neon frontier.<br />How far can you push the limits?</p><div class="intro-pills"><span>⚡ PROCEDURAL WORLD</span><span>◈ LIVE PHYSICS</span><span>◇ ENDLESS FLIGHT</span></div><button id="start-btn" class="primary-btn">ENGAGE ENGINES <span>↗</span></button><div class="intro-hint">DESKTOP: WASD / ARROWS + SPACE &nbsp; · &nbsp; MOBILE: TOUCH CONTROLS</div></div><div class="intro-index">01 — EXPERIMENTAL SIMULATOR</div></div>
+    <div id="pause-overlay" class="overlay compact" hidden><div class="modal"><span class="modal-kicker">FLIGHT SYSTEM</span><h2>PAUSED<span class="dot">.</span></h2><p>Take your time. The frontier can wait.</p><button id="resume-btn" class="primary-btn">RESUME FLIGHT <span>↗</span></button><button id="restart-pause-btn" class="secondary-btn">RESTART RUN</button></div></div>
+    <div id="gameover" class="overlay compact" hidden><div class="modal"><span class="modal-kicker">SIGNAL LOST / FLIGHT TERMINATED</span><h2>RUN <i>OVER.</i></h2><div class="final-stats"><div><small>DISTANCE COVERED</small><strong id="final-distance">0.00 KM</strong></div><div><small>CORES COLLECTED</small><strong id="final-cores">00</strong></div></div><p>Every crash is another chance to fly further.</p><button id="restart-btn" class="primary-btn">TRY AGAIN <span>↗</span></button></div></div>
+    <div id="fallback" class="fallback" hidden><h2>3D ENGINE UNAVAILABLE</h2><p>WebGL may be disabled or this device may not support it. Try an updated browser with graphics acceleration enabled.</p><button onclick="location.reload()">RETRY</button></div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
