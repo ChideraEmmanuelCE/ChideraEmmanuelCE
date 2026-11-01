@@ -284,10 +284,10 @@ function resetItem(group,z) {
   group.position.set(choose([-7,-3.5,0,3.5,7])+random(-.4,.4),hazard?2.75:2.8,nextZ);
   group.userData.collected=false;group.visible=true;
 }
-// Just five hazards, widely staggered, with more rewarding collectable cores.
+// Four spaced-out hazards with a long safe opening and extra collectible cores.
 for(let i=0;i<18;i++){
-  const hazard=i%4===0;
-  makeItem(hazard?'hazard':'core',-75-i*25);
+  const hazard=i%5===0;
+  makeItem(hazard?'hazard':'core',hazard?-145-(i/5)*108:-76-i*21);
 }
 
 const state = {
@@ -369,7 +369,11 @@ function resetFlight(){
   state.y=2.8;state.speed=120;state.energy=100;
   state.boostEnd=state.boostCooldownEnd=state.tapUntil=state.tapDirection=0;
   inputs.clear();tiltSteer=0;
-  for(let i=0;i<items.length;i++) resetItem(items[i],-75-i*25);
+  let hazardIndex=0,coreIndex=0;
+  for(const item of items){
+    const hazard=item.userData.type==='hazard';
+    resetItem(item,hazard?-145-hazardIndex++*108:-76-coreIndex++*21);
+  }
   craft.position.set(0,state.y,6);craft.rotation.set(0,0,0);
   $('intro').hidden=$('pause-overlay').hidden=$('gameover').hidden=true;
   $('settings-panel').hidden=$('hangar-panel').hidden=true;
