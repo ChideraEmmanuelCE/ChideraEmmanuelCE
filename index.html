@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0b1218" />
+  <meta name="description" content="Skybound: a cinematic, free-roam browser flight simulator with ten aircraft, live seasonal worlds and three airports." />
+  <title>SKYBOUND — Open World Flight Simulator</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"}}</script>
+</head>
+<body>
+  <div id="scene" aria-label="3D open-world flight simulator"></div>
+  <div class="atmosphere-grain"></div>
+  <div id="ui">
+    <header class="global-header" id="global-header">
+      <div class="brand"><span class="brand-mark"><svg viewBox="0 0 30 30" fill="none"><path d="m4 20 22-12-9 17-3-8-10 3Z" fill="currentColor"/><path d="m14 17 12-9" stroke="#142028" stroke-width="1.3"/></svg></span><span class="brand-word">SKYBOUND<span class="brand-dot">.</span></span><span class="brand-sub">FLIGHT SIMULATOR</span></div>
+      <div class="top-right"><span class="live-status"><i></i> WORLD ONLINE</span><span class="divider-vertical"></span><span class="top-season" id="headerSeason">NOVEMBER · AUTUMN</span><button class="icon-btn header-sound" id="soundBtn" title="Toggle audio" aria-label="Toggle audio"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5ZM15.5 8.5a5 5 0 0 1 0 7M18 5a10 10 0 0 1 0 14"/></svg></button></div>
+    </header>
+
+    <main id="home" class="home-screen">
+      <div class="home-content">
+        <div class="eyebrow"><span class="eyebrow-line"></span> THE OPEN SKY IS YOURS <span class="season-inline" id="homeSeason">NOVEMBER 2026</span></div>
+        <h1>THE WORLD<br/>IS YOUR <em>RUNWAY.</em></h1>
+        <p class="home-description">From the first turn of the propeller to the perfect touchdown. Ten aircraft. Three regions. One endless horizon.</p>
+        <div class="home-cta-row"><button class="primary-btn" id="startBtn">START FLYING <span>↗</span></button><button class="outline-btn" id="exploreBtn"><span class="play-outline">▶</span> EXPLORE THE FLEET</button></div>
+        <div class="home-metrics"><div><strong>10</strong><span>FLYABLE AIRCRAFT</span></div><div><strong>03</strong><span>OPEN WORLD REGIONS</span></div><div><strong>∞</strong><span>HORIZONS TO EXPLORE</span></div></div>
+      </div>
+      <aside class="home-fleet" id="homeFleet"><div class="panel-label"><span>01 / YOUR AIRCRAFT</span><span class="panel-indicator">● SELECTION</span></div><div class="selected-plane"><div class="aircraft-overline" id="planeCategory">SINGLE-ENGINE · GENERAL AVIATION</div><h2 id="planeName">Cessna 172</h2><p id="planeTagline">The sky starts here.</p><div class="selected-specs"><div><span>MAX SPEED</span><strong id="planeSpeed">226 <small>KM/H</small></strong></div><div><span>RANGE</span><strong id="planeRange">1,185 <small>KM</small></strong></div></div></div><div class="fleet-scroller" id="fleetList"></div><div class="fleet-footer"><span>SCROLL TO EXPLORE THE HANGAR</span><span id="planeCount">01 / 10</span></div></aside>
+      <div class="bottom-home-bar"><div class="coordinate">EST. 2026 <span>—</span> BUILT FOR THE LOVE OF FLIGHT</div><div class="scroll-hint"><span class="scroll-circle">↓</span> CHOOSE YOUR AIRCRAFT</div></div>
+    </main>
+
+    <section id="hud" class="hud hidden" aria-label="Flight cockpit HUD">
+      <div class="hud-top-left"><span class="hud-mode-dot"></span><span id="flightMode">FREE FLIGHT</span><span class="tiny-separator">/</span><span id="aircraftHud">C172 SKYHAWK</span></div>
+      <div class="hud-top-right"><button id="weatherMenuBtn" class="hud-pill"><span id="worldLabel">VERDANT BAY</span> <span class="pill-chevron">⌄</span></button><button id="cameraBtn" class="hud-pill camera-pill" title="Change camera (C)"><span class="hud-icon">◫</span> <span id="cameraLabel">CHASE</span></button><button id="pauseBtn" class="square-ctrl" aria-label="Open flight menu">☷</button></div>
+      <div class="flight-instruments"><div class="instrument left-instr"><div class="instrument-title">AIRSPEED</div><div class="instrument-value" id="speedReadout">000</div><div class="instrument-unit">KNOTS <span class="instrument-side">IAS</span></div><div class="instrument-ruler" id="speedRuler"></div></div><div class="instrument mid-instr"><div class="heading-strip" id="compassReadout">N 000°</div><div class="crosshair"><div class="horizon-line"></div><i></i><div class="crosshair-inner"></div></div><div class="vertical-speed"><span>V/S</span> <strong id="vsReadout">+0</strong> <span>FPM</span></div></div><div class="instrument right-instr"><div class="instrument-title">ALTITUDE</div><div class="instrument-value" id="altReadout">0000</div><div class="instrument-unit">FEET <span class="instrument-side">BARO</span></div><div class="instrument-ruler" id="altRuler"></div></div></div>
+      <div class="hud-lower-left"><div class="small-metric"><span>ENGINE</span><strong id="engineReadout">31%</strong></div><div class="throttle-meter"><div id="throttleFill"></div></div><div class="small-metric"><span>GROUND SPEED</span><strong id="groundReadout">0 KM/H</strong></div><div class="small-metric secondary"><span>FLIGHT TIME</span><strong id="timeReadout">00:00</strong></div></div>
+      <div class="mini-map-shell"><div class="map-header"><span>LIVE NAVIGATION</span><span id="mapHeading">N 000°</span></div><canvas id="minimap" width="360" height="240" aria-label="Mini-map of airports and current aircraft position"></canvas><div class="map-footer"><span id="nearestAirport">VERDANT INTERNATIONAL</span><span id="nearestDist">0.0 KM</span></div></div>
+      <div id="eventToast" class="event-toast hidden"><span id="toastSymbol">✦</span><div><strong id="toastTitle">WELCOME ABOARD</strong><span id="toastDescription">Follow the flight director</span></div></div>
+      <div class="flight-bottom"><div class="flight-bottom-hint" id="desktopHint"><span>W / S</span> PITCH <b>·</b> <span>A / D</span> BANK <b>·</b> <span>⇧ / ⌃</span> THROTTLE <b>·</b> <span>C</span> CAMERA <b>·</b> <span>F</span> EXIT</div><div class="quick-actions"><button id="gearBtn" class="quick-btn" title="Toggle landing gear (G)"><span>⌄</span> GEAR DOWN</button><button id="walkBtn" class="quick-btn" title="Exit aircraft (F)"><span>↗</span> EXIT AIRCRAFT</button></div></div>
+      <div id="mobileControls" class="mobile-controls"><div id="joystickZone" class="joystick-zone" aria-label="Virtual flight stick"><div class="joystick-rail"><div id="joystickKnob" class="joystick-knob"></div></div><span class="touch-label">FLIGHT STICK</span></div><div class="mobile-right"><div class="throttle-touch-area" id="throttleTouch"><span>THROTTLE</span><div class="touch-throttle-track"><div id="touchThrottleFill"></div><div id="touchThrottleThumb"></div></div><span id="touchThrottlePercent">30%</span></div><button class="mobile-brake" id="brakeTouch">BRAKE</button></div></div>
+    </section>
+
+    <section id="walkHud" class="walk-hud hidden"><div class="walking-label"><span class="walking-dot"></span> ON FOOT <small>· FREE ROAM</small></div><div class="walking-target" id="walkingTarget">FIND AN AIRCRAFT TO BOARD</div><button class="walk-board" id="boardBtn">BOARD AIRCRAFT <span>↗</span></button><div class="walking-instructions" id="walkingInstructions">W A S D TO WALK · MOUSE / DRAG TO LOOK · F TO BOARD</div><div class="walk-mobile-controls" id="walkMobileControls"><div id="walkJoystick" class="walk-stick"><div id="walkKnob"></div></div><div class="walk-mobile-label">MOVE</div></div></section>
+
+    <section id="modal" class="modal hidden" aria-label="Flight menu"><div class="modal-backdrop" id="modalBack"></div><div class="modal-panel"><div class="modal-heading"><div><span class="modal-eyebrow">SKYBOUND / FLIGHT CONTROL</span><h2>FLIGHT MENU<span>.</span></h2></div><button class="close-btn" id="closeModal">✕</button></div><div class="tab-bar"><button data-tab="aircraft" class="tab active">AIRCRAFT</button><button data-tab="world" class="tab">WORLD & WEATHER</button><button data-tab="controls" class="tab">CONTROLS</button></div><div id="tabAircraft" class="tab-content"><p class="tab-helper">Choose your next aircraft. Switching aircraft resets to the nearest airfield.</p><div class="modal-fleet" id="modalFleet"></div></div><div id="tabWorld" class="tab-content hidden"><p class="tab-helper">Travel to a new open-world region or let the real-world calendar control the season.</p><div id="regionList" class="region-list"></div><div class="setting-heading">SEASONAL ATMOSPHERE</div><div id="seasonList" class="season-list"></div></div><div id="tabControls" class="tab-content hidden"><div class="control-guide"><div><span>W / S or ↑ / ↓</span><strong>Pitch nose up / down</strong></div><div><span>A / D or ← / →</span><strong>Bank left / right</strong></div><div><span>Q / E</span><strong>Rudder left / right</strong></div><div><span>SHIFT / CTRL</span><strong>Increase / decrease throttle</strong></div><div><span>SPACE</span><strong>Ground brakes</strong></div><div><span>C / V</span><strong>Cycle camera views</strong></div><div><span>G</span><strong>Toggle landing gear</strong></div><div><span>F</span><strong>Exit or board aircraft</strong></div><div><span>R</span><strong>Return to airport</strong></div><div><span>ESC</span><strong>Pause / resume flight</strong></div></div><p class="tab-helper">On touchscreens, drag the flight stick and slide the throttle. Gamepads are supported.</p></div><div class="modal-footer"><button class="footer-secondary" id="resetBtn">↺ RESET AT AIRPORT</button><button class="footer-primary" id="resumeBtn">RESUME FLIGHT <span>↗</span></button></div></div></section>
+    <section id="crashOverlay" class="crash-overlay hidden"><div class="crash-content"><div class="crash-eyebrow">FLIGHT TERMINATED</div><div class="crash-graphic">✳</div><h2>HARD LANDING.</h2><p>The aircraft sustained critical damage. Every great pilot learns from their landings.</p><button id="retryBtn" class="primary-btn">RESTART FLIGHT <span>↗</span></button></div></section>
+    <div id="errorScreen" class="error-screen hidden"><div><h2>WE COULDN'T START THE 3D WORLD.</h2><p>Your browser needs WebGL support and access to load the 3D engine. Try updating your browser or enabling hardware acceleration.</p><button onclick="location.reload()">RETRY</button></div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

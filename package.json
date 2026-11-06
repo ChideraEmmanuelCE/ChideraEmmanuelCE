@@ -1,0 +1,14 @@
+{
+  "name": "skybound-flight-simulator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Open-world WebGL flight simulator with ten flyable aircraft and seasonal airports",
+  "scripts": {
+    "dev": "python3 -m http.server 5173",
+    "test": "node --test tests/*.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,43 +1,71 @@
-# Chidera Emmanuel Okpala
+# SKYBOUND — Open World Flight Simulator
 
-**Full-stack web and mobile developer · React, Next.js, TypeScript and Node.js · Lagos, Nigeria**
+**Skybound** is a self-contained, responsive Three.js flight simulator with ten selectable aircraft, three 3D airports, free-flight physics, walk-around/boarding, cockpit and chase cameras, Web Audio engine synthesis, weather that tracks the calendar, and a mobile-first flight stick.
 
-I build responsive websites, web applications and mobile interfaces. I also help teams fix existing products, connect APIs and deliver clearly scoped features through GitHub.
+## Features
 
-[View my portfolio](https://my-portfolio-ce.netlify.app) · [Discuss a project](https://wa.me/2347042879150) · [Email me](mailto:chideraemmanuelokpala@gmail.com)
+- **Ten flyable aircraft:** Cessna 172, Piper Super Cub, Cirrus SR22, Beechcraft Baron G58, King Air 350i, Pilatus PC-12 NGX, ATR 72-600, Airbus A320neo, Boeing 787 Dreamliner, F-16 Fighting Falcon. Aircraft are stylized custom procedural 3D geometry, not licensed manufacturer's exact models.
+- **Three free-roam regions:** Verdant Bay, Alpine Frontier, Red Rock Desert. Each includes three runway-equipped airports, apron/terminal, tower, ground vehicles, mountains, vegetation, parked aircraft, and nav map. Switching region respawns the player.
+- **Flight model:** throttle, lift threshold, stalls, pitch, bank, rudder, airspeed, altitude, vertical speed, hard-landing detection, gear-related crashes and smooth landings.
+- **On-foot exploration:** after stopping, press `F` to leave the aircraft. Walk to a parked aircraft, then press `F` or click **Board Aircraft** to fly it.
+- **Calendar-driven weather:** November autumn palette, December snow and terminal lights, January frost, spring/summer. Override from World & Weather.
+- **Minimal touch UI:** virtual stick, throttle slider and brake; responsive flight readouts, keyboard and Gamepad API support.
+- **Four cameras:** chase, cockpit, wing and control tower.
+- **Audio:** procedural engine sounds (propeller/turboprop/jet), audio gate to respect browser autoplay policies. No paid or third-party audio files.
+- **Local preferences:** persist selected aircraft, region and season override.
 
-## Work with me
+## Run locally
 
-- **Website repairs:** mobile layout problems, broken enquiry paths, confusing navigation and focused interface improvements.
-- **Business websites and lead-enquiry pages:** clear service information and practical ways for visitors to contact your business.
-- **Agency development support:** scoped React, Next.js, TypeScript and Node.js tasks, with a pull request and a documented handoff.
-- **Web and mobile products:** features and API integrations, with the requirements, acceptance criteria and price agreed before work begins.
+This is a static ES-module website. No npm, build step, paid APIs or external assets are required except Three.js from the pinned jsDelivr CDN and optional Google Fonts. Serve it using any HTTP server:
 
-## Selected work
+```bash
+python3 -m http.server 4173
+# Open http://localhost:4173
+```
 
-These are independent portfolio projects, not claims of client results.
+Or deploy the repository to Vercel with **Framework Preset: Other** and **Output Directory: .**.
 
-| Project | What to explore | Link |
-| --- | --- | --- |
-| Pocket POS | A point-of-sale interface for everyday business workflows | [Open project](https://pocket-pos.netlify.app) |
-| Nova Digital | A service website and responsive product presentation | [Open project](https://my-nova-digital.netlify.app) |
-| Quick Bill Split | An interactive bill-splitting utility | [Open project](https://quick-bill-split.netlify.app) |
+## Desktop controls
 
-## Open-source work
+| Command | Key |
+|---|---|
+| Pitch up/down | W / S, ↑ / ↓ |
+| Bank left/right | A / D, ← / → |
+| Rudder | Q / E |
+| Increase / decrease throttle | Shift / Ctrl |
+| Ground brake | Space |
+| Change camera | C / V |
+| Landing gear | G |
+| Exit or board (when stopped) | F |
+| Change world / season | M |
+| Reset at airfield | R |
+| Flight menu | Esc |
 
-**[Commonhour](https://github.com/ChideraEmmanuelCE/commonhour)** helps people compare meeting times across time zones and share a plan or download a calendar event. It is an MIT-licensed browser application with no account required.
+Gamepad left stick is mapped to pitch/bank and triggers to throttle.
 
-[Try Commonhour](https://chidera-commonhour.netlify.app) · [Read the code and documented limitations](https://github.com/ChideraEmmanuelCE/commonhour)
+## Design/technical notes
 
-## How I work
+The flight physics are intended for accessible browser gameplay; this is not a certified aeronautical training simulator. Aircraft models are original **procedural approximations** of aircraft categories and have independently tuned parameters. No external GLTF licensing is required.
 
-1. Agree the problem, scope, acceptance criteria and delivery estimate.
-2. Build and share reviewable progress.
-3. Validate the agreed behaviour and explain the checks completed.
-4. Hand over the code, deployment details and usage notes.
+WebGL 2 is required. Renderer pixel density, terrain density and forest geometry scale for mobile devices. Airport geometry is procedural and shared to minimize overhead; aircraft engine audio is synthesized through the Web Audio API. The site needs internet access to load the pinned `three@0.180.0` CDN library.
 
-## Main tools
+## Structure
 
-JavaScript · TypeScript · React · Next.js · React Native / Expo · Node.js · Express · REST APIs · PostgreSQL · Git / GitHub · Netlify · AI API integrations
+- `index.html` — app layout, all overlays and controls
+- `styles.css` — responsive cinematic UI
+- `src/main.js` — input binding, state, scene loop and camera
+- `src/flight.js` — testable flight model, aircraft catalog, airport/map configurations, seasonal palette
+- `src/aircraft.js` — parametric 3D aircraft + on-foot character
+- `src/world.js` — airports, landscape, terminal buildings, vegetation, mountains, clouds and snow
+- `src/audio.js` — synthesized 3D flight ambiance/engines
 
-For remote contract work or a project brief, email **chideraemmanuelokpala@gmail.com** or [contact me on WhatsApp](https://wa.me/2347042879150).
+## Testing
+
+```bash
+node --test tests/flight.test.mjs
+node --check src/main.js
+```
+
+## Roadmap
+
+Replace procedural airport/aircraft meshes with licensed, optimized GLTF/PBR models; add taxiing AI and ATC; add aerodynamic surfaces, real METAR, controller remapping and persistent career progression.
