@@ -4,7 +4,7 @@
 
 I build responsive websites, web applications and mobile interfaces. I also help teams fix existing products, connect APIs and deliver clearly scoped features through GitHub.
 
-[View my portfolio](https://my-portfolio-ce.netlify.app) · [Discuss a project](https://wa.me/2347042879150) · [Email me](mailto:chideraemmanuelokpala@gmail.com)
+[View my portfolio](https://chidera-portfolio-seven.vercel.app/) • [Discuss a project](https://wa.me/2347042879150) · [Email me](mailto:chideraemmanuelokpala@gmail.com)
 
 ## Work with me
 
